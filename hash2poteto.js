@@ -6,7 +6,7 @@ const regHead = new RegExp("^([0-9a-f]{12})")
 export const createPoteto = (data, iw) => {
     const imagelist = new Array(iw);
     for (let j = 0; j < iw; j++) {
-        imagelist[j] = new Array(iw).fill(255);
+        imagelist[j] = new Array(iw).fill(false);
     }
     const exec = regHead.exec(data);
     if (exec === null) {
@@ -19,12 +19,12 @@ export const createPoteto = (data, iw) => {
         const posi = binNum[0];
         const shape = parseInt(binNum.slice(-3), 2) !== 0? parseInt(binNum.slice(-3), 2): 1;
         
-        const line = new Array(iw).fill(255);
+        const line = new Array(iw).fill(false);
         const shiftNum = (8 - shape) / 2;
         const startShiftNum = posi === "1"? Math.floor(shiftNum) : Math.ceil(shiftNum);
 
         for (let j = startShiftNum; j < shape + startShiftNum; j++) {
-            line[4 + j] = 1;
+            line[4 + j] = true;
         }
         imagelist[2 + index] = line;
     });
