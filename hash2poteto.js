@@ -2,8 +2,10 @@ const regHead = new RegExp("^([0-9a-f]{12})")
 /**
  * @param {string} data 
  * @param {number} iw 
+ * @returns {boolean[][]}
  */
 export const createPoteto = (data, iw) => {
+    /** @type {boolean[][]} */
     const imagelist = new Array(iw);
     for (let j = 0; j < iw; j++) {
         imagelist[j] = new Array(iw).fill(false);
@@ -19,6 +21,7 @@ export const createPoteto = (data, iw) => {
         const posi = binNum[0];
         const shape = parseInt(binNum.slice(-3), 2) !== 0? parseInt(binNum.slice(-3), 2): 1;
         
+        /** @type {boolean[]} */
         const line = new Array(iw).fill(false);
         const shiftNum = (8 - shape) / 2;
         const startShiftNum = posi === "1"? Math.floor(shiftNum) : Math.ceil(shiftNum);

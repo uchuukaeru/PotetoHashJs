@@ -1,5 +1,12 @@
 const regTail = new RegExp("([0-9a-f]{2})$")
 
+/**
+ * 
+ * @param {number} h 
+ * @param {number} l 
+ * @param {number} s 
+ * @returns {{red: number, green: number, blue: number}}
+ */
 const HLS2RGB = (h, l, s) => {
     const MAX = 2.55 * (l + l * (s / 100));
     const MIN = 2.55 * (l - l * (s / 100));
@@ -25,6 +32,7 @@ const HLS2RGB = (h, l, s) => {
  * 
  * @param {boolean} roasted 
  * @param {string} data 
+ * @returns {{red: number, green: number, blue: number}}
  */
 export const createColor = (isRoasted, data) => {
     const exec = regTail.exec(data);

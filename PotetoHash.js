@@ -6,6 +6,7 @@ import {createColor} from "./createColor.js"
  * @param {string} data
  * @param {boolean} isRoasted
  * @param {number} r 
+ * @returns {ImageData}
  */
 export const encodeImageData = (data, isRoasted, r = 8) => {
     const iw = 16;
@@ -39,7 +40,7 @@ class PotetoHash extends HTMLElement {
     /**
      * 
      * @param {string} value 
-     * @param {string} isRoasted
+     * @param {string|boolean} isRoasted
      * @param {number} pixelsize 
      */
     constructor(value, isRoasted, pixelsize) {
