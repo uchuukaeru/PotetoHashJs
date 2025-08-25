@@ -88,6 +88,17 @@ class PotetoHash extends HTMLElement {
         this.g.putImageData(imgdata, 0, 0);
         this.setAttribute("is_roasted", isRoastedBool);
     }
+    
+    /**
+     * @param {boolean} isRoasted
+     */
+    set isRoasted(isRoasted){
+        const value = this.getAttribute("value");
+        const imgdata = encodeImageData(value, isRoasted, this.pixelsize);
+        this.canvas.width = this.canvas.height = imgdata.width;
+        this.g.putImageData(imgdata, 0, 0);
+        this.setAttribute("is_roasted", isRoasted);
+    }
 }
 customElements.define('poteto-hash', PotetoHash);
 export {PotetoHash};
