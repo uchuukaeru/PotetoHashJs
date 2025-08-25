@@ -32,6 +32,7 @@ export const encodeImageData = (data, r = 8) => {
             }
         }
     }
+    return new ImageData(idata, qw, qw);
 }
 
 class PotetoHash extends HTMLElement {
