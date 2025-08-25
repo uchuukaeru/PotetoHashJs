@@ -1,10 +1,9 @@
 import {createPoteto} from "./hash2poteto.js"
-
-const regTail = new RegExp("([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$")
+import {createColor} from "./createColor.js"
 
 /**
  * 
- * @param {string} data 
+ * @param {string} data
  * @param {number} r 
  */
 export const encodeImageData = (data, r = 8) => {
@@ -14,10 +13,10 @@ export const encodeImageData = (data, r = 8) => {
     const qw = iw * r;
     const idata = new Uint8ClampedArray(qw * qw * 4);
 
-    const regColor = regTail.exec(data);
-    const red = regColor === null? 255 : parseInt(regColor[1], 16);
-    const green = regColor === null? 255 : Math.floor(parseInt(regColor[2], 16) / 2);
-    const blue = regColor === null? 255 : parseInt(regColor[3], 16);
+    const color = createColor(false, data);
+    const red = color["red"];
+    const green = color["green"];
+    const blue = color["blue"];
 
     for (let i = 0; i < iw; i++){
         for (let j = 0; j < iw; j++){
@@ -25,9 +24,9 @@ export const encodeImageData = (data, r = 8) => {
             for(let p = 0; p < r * r; p++){
                 const x = i * r + Math.floor(p / r);
                 const y = j * r + (p % r);
-                idata[(x + y * qw) *4 + 0] = c * red;
-                idata[(x + y * qw) *4 + 1] = c * green;
-                idata[(x + y * qw) *4 + 2] = c * blue;
+                idata[(x + y * qw) *4 + 0] = c? red : 255;
+                idata[(x + y * qw) *4 + 1] = c? green : 255;
+                idata[(x + y * qw) *4 + 2] = c? blue : 255;
                 idata[(x + y * qw) *4 + 3] = 255;
             }
         }
@@ -62,11 +61,11 @@ class PotetoHash extends HTMLElement {
      * @param {string} value
      */
     set value(value){
-        // console.log("poteto : set value")
-        const imgdata = encodeImageData(value, this.pixelsize);
+        const isRoastedBool = this.getAttribute("is_roasted") === "ture";
+        const imgdata = encodeImageData(value, isRoastedBool, this.pixelsize);
         this.canvas.width = this.canvas.height = imgdata.width;
-        // console.log(imgdata, imgdata.height)
         this.g.putImageData(imgdata, 0, 0);
+        this.setAttribute("value", value);
     }
 }
 customElements.define('poteto-hash', PotetoHash);
