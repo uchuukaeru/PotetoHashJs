@@ -55,8 +55,8 @@ class PotetoHash extends HTMLElement {
         if (value) {
             this.value = value;
         } else {
-            this.value = document.location.toString();
-            window.addEventListener("hashchange", () => this.value = document.location.toString(), false);
+            // PotetoHashJsのSHA-256ハッシュ値
+            this.value = "2426987bbefc884c6476e32fcf51492feee757f1565d9f9fa47d1e67356cf970";
         }
 
         if (isRoasted) {
