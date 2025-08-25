@@ -19,7 +19,7 @@ export const createPoteto = (data, iw) => {
         const posi = binNum[0];
         const shape = parseInt(binNum.slice(-3), 2) !== 0? parseInt(binNum.slice(-3), 2): 1;
         
-        const column = new Array(iw).fill(255);
+        const line = new Array(iw).fill(255);
         const shiftNum = (8 - shape) / 2;
         const startShiftNum = posi === "1"? Math.floor(shiftNum) : Math.ceil(shiftNum);
 
