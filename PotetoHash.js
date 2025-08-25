@@ -4,16 +4,17 @@ import {createColor} from "./createColor.js"
 /**
  * 
  * @param {string} data
+ * @param {boolean} isRoasted
  * @param {number} r 
  */
-export const encodeImageData = (data, r = 8) => {
+export const encodeImageData = (data, isRoasted, r = 8) => {
     const iw = 16;
     const imagelist = createPoteto(data, iw);
 
     const qw = iw * r;
     const idata = new Uint8ClampedArray(qw * qw * 4);
 
-    const color = createColor(false, data);
+    const color = createColor(isRoasted, data);
     const red = color["red"];
     const green = color["green"];
     const blue = color["blue"];
@@ -38,11 +39,13 @@ class PotetoHash extends HTMLElement {
     /**
      * 
      * @param {string} value 
+     * @param {string} isRoasted
      * @param {number} pixelsize 
      */
-    constructor(value, pixelsize) {
+    constructor(value, isRoasted, pixelsize) {
         super();
         value = this.getAttribute("value") || value;
+        isRoasted = this.getAttribute("is_roasted") === "true" || isRoasted === "true";
         this.pixelsize = this.getAttribute("pixelsize") || pixelsize;
         this.canvas = document.createElement("canvas");
         this.canvas.style.imageRendering = "pixelated";
@@ -55,6 +58,12 @@ class PotetoHash extends HTMLElement {
             this.value = document.location.toString();
             window.addEventListener("hashchange", () => this.value = document.location.toString(), false);
         }
+
+        if (isRoasted) {
+            this.isRoasted = isRoasted === "true";
+        } else {
+            this.isRoasted = false
+        }
     }
 
     /**
@@ -66,6 +75,18 @@ class PotetoHash extends HTMLElement {
         this.canvas.width = this.canvas.height = imgdata.width;
         this.g.putImageData(imgdata, 0, 0);
         this.setAttribute("value", value);
+    }
+
+    /**
+     * @param {string} isRoasted
+     */
+    set isRoasted(isRoasted){
+        const isRoastedBool = isRoasted === "true";
+        const value = this.getAttribute("value");
+        const imgdata = encodeImageData(value, isRoastedBool, this.pixelsize);
+        this.canvas.width = this.canvas.height = imgdata.width;
+        this.g.putImageData(imgdata, 0, 0);
+        this.setAttribute("is_roasted", isRoastedBool);
     }
 }
 customElements.define('poteto-hash', PotetoHash);
