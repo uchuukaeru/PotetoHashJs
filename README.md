@@ -7,6 +7,7 @@
 [サンプルページ](https://uchuukaeru.github.io/PotetoHashJs/)
 
 ```html
+<script type="module" src="https://uchuukaeru.github.io/PotetoHashJs/PotetoHash.js"></script>
 <poteto-hash></poteto-hash>
 ```
 
