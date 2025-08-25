@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="module" src="./PotetoHash.js"></script>
+    </head>
+    <body>
+        <div>input : <input type="text" id="input"></div>
+        <div>hash : <span id="hash"></span></div>
+        <div><poteto-hash id="poteto"></poteto-hash></div>
+    </body>
+    <script>
+        const input = document.getElementById("input");
+        const output = document.getElementById("hash");
+        const poteto = document.getElementById("poteto");
+
+        input.change = async () => {
+            const inputText = input.value;
+            const array = new Uint8Array(await crypto.subtle.digest("SHA-256", data))
+            const hash = Array.from(array)
+                .map((b) => b.toString(16).padStart(2, '0'))
+                .join("");
+
+            output.innerText = hash;
+            poteto.value = hash;
+        }
+    </script>
+</html>
