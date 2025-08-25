@@ -8,7 +8,7 @@ export const createPoteto = (data, iw) => {
     for (let j = 0; j < iw; j++) {
         imagelist[j] = new Array(iw).fill(255);
     }
-    const exec = regHead(data);
+    const exec = regHead.exec(data);
     if (exec === null) {
         return imagelist;
     }
