@@ -13,7 +13,7 @@
         const output = document.getElementById("hash");
         const poteto = document.getElementById("poteto");
 
-        input.change = async () => {
+        input.onchange = async () => {
             const inputText = input.value;
             const array = new Uint8Array(await crypto.subtle.digest("SHA-256", data))
             const hash = Array.from(array)
