@@ -15,7 +15,8 @@
 
         input.onchange = async () => {
             const inputText = input.value;
-            const array = new Uint8Array(await crypto.subtle.digest("SHA-256", inputText))
+            const encoder = new TextEncoder();
+            const array = new Uint8Array(await crypto.subtle.digest("SHA-256", encoder.encode(inputText).buffer));
             const hash = Array.from(array)
                 .map((b) => b.toString(16).padStart(2, '0'))
                 .join("");
