@@ -7,6 +7,7 @@
     <body>
         <h1>PotetoHashJs</h1>
         <div>input : <input type="text" id="input"></div>
+        <div>isRoasted : <input type="checkbox" id="isRoasted" ></div>
         <div>hash : <span id="hash"></span></div>
         <div><poteto-hash id="poteto"></poteto-hash></div>
 
@@ -14,6 +15,7 @@
     </body>
     <script>
         const input = document.getElementById("input");
+        const isRoasted = document.getElementById("isRoasted");
         const output = document.getElementById("hash");
         const poteto = document.getElementById("poteto");
 
@@ -27,6 +29,10 @@
 
             output.innerText = hash;
             poteto.value = hash;
+        }
+        isRoasted.onchange = () => {
+            const roasted = isRoasted.checked;
+            poteto.isRoasted = roasted.toString();
         }
     </script>
 </html>
